@@ -43,7 +43,7 @@ csTutorial.service('Notify', [
 
         function _notify(title, body, icon) {
             return new Notification(title, {
-                icon: icon || '/image/notify.png',
+                icon: icon || './image/notify.png',
                 body: body
             });
         }
