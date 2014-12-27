@@ -1,0 +1,15 @@
+<div>
+    <ul class="nav nav-tabs" role="tablist" style="border: 0">
+        <li ng-repeat="file in files" ng-class="{active: file === code.fileActive}" ng-click="selectFile(file)">
+            <a href ng-bind="file.name"></a>
+        </li>
+    </ul>
+    <pre ng-show="code.fileActive.content" class="{{code.fileActive.suffix}}" ng-bind="code.fileActive.content"></pre>
+    <div class="code-script"></div>
+    <div class="panel panel-default" ng-hide="code.fileActive.content">
+        <div class="panel-body code-preview" ng-hide="files[0].loaded">
+            <i class="fa fa-spin fa-spinner"></i> Loading...
+        </div>
+        <div class="panel-body code-preview" ng-show="files[0].loaded"></div>
+    </div>
+</div>

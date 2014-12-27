@@ -1,0 +1,6 @@
+<div ng-controller="IntroController">
+    {{welcome}}
+    Input a name for the button:
+    <input id="button-name" type="text" ng-model="text"/>
+    <sample-directive welcome="Hello directive!" button-name="text" test="alert()"></sample-directive>
+</div>

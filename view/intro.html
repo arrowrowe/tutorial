@@ -1,0 +1,15 @@
+<div>
+    <p>
+        <strong>参考:</strong>
+        <a target="_blank" href="https://docs.angularjs.org/guide/directive">Creating Custom Directives</a>
+    </p>
+
+    <cs-code preview-page="0" default-page="1" include-files="['/view/sample/intro.html','/page/intro/intro.js','/page/intro/sampleDirective.html']"></cs-code>
+
+    <p>
+        一般使用 <code>link: function (scope) {} </code> 来完成 directive 中的逻辑.
+    </p>
+    <p>
+        如果这个 directive 可能被其它 directive 调用, 再使用 <code>controller: function ($scope) {} </code>.
+    </p>
+</div>

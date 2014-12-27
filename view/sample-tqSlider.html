@@ -1,0 +1,57 @@
+<div>
+    <p>
+        tqSlider
+        (<a target="_blank" href="http://tongqu.me/index.php/test/test">Demo @ Tongqu</a>)
+        是基于
+        <a target="_blank" href="https://github.com/seiyria/bootstrap-slider">bootstrap-slider</a>
+        (<a target="_blank" href="http://seiyria.github.io/bootstrap-slider/">Demo</a>)
+        封装的 angular directive.
+    </p>
+    <pre>angular.module('tqApp')
+    .directive('tqSlider', [
+        function () {
+            'use strict';
+            return {
+                template: '&lt;input/&gt;',
+                replace: true,
+                require: '?ngModel',
+                link: function (scope, element, attrs, ngModel) {
+                    angular.forEach(attrs, function (attr, attrName) {
+                        if (attrName.substr(0, 6) === 'slider') {
+                            element[0].setAttribute(attrs.$attr[attrName], scope.$eval(attr));
+                        }
+                    });
+                    var slider = new Slider(element[0]);
+                    if (ngModel) {
+                        // 与 angular.js 中的 $setViewValue 相比只是舍弃了 value 重新取值.
+                        // 原因是 angular.js 中 change 事件触发后调用 ngModel.$setViewValue 时, value 用了 element.val()...
+                        ngModel.$setViewValue = function(value, trigger) {
+                            ngModel.$viewValue = slider.getValue();
+                            if (!ngModel.$options || ngModel.$options.updateOnDefault) {
+                                ngModel.$$debounceViewValueCommit(trigger);
+                            }
+                        };
+                        ngModel.$render = function () {
+                            slider.setValue(ngModel.$modelValue, true);
+                        };
+                    }
+                }
+            };
+        }
+    ]);</pre>
+    <p>
+        <code>replace: true</code>是为了可以直接在 HTML 标签上写各种属性, Angular 把 tqSlider 标签替换为 template 的时候, HTML 里写在 tqSlider 上的属性就到了 template 中的 input 上, 之后调用 bootstrap-slider 加载时这些属性就可以发挥作用, angular 就不必特别处理了.
+    </p>
+    <p>
+        <code>require: '?ngModel'</code>让 tqSlider 支持 ngModel, 用 link 函数的第四个参数来与 ngModel 交互. 这里的 ngModel 就是一个 directive 的 controller.
+    </p>
+    <p>
+        ngModel 的作用就是把 Angular 中的变量与 bootstrap-slider 中的变量作双向绑定.
+    </p>
+    <p>
+        Angular 中变量变化的时候, ngModel 会调用 $render 方法; bootstrap-slider 中变量变化时, 会触发 jQuery 的 change 事件, 被 ngModel 监听到后会调用 $setViewValue 方法.
+    </p>
+    <p>
+        另外, link 函数中第二个参数 element, 作为一个 jqLite 对象, 可以把 directive 的 DOM 交给 bootstrap-slider 来初始化.
+    </p>
+</div>

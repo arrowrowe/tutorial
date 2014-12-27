@@ -1,0 +1,37 @@
+<div ng-controller="AngularFormController">
+    <form name="form" role="form" class="form-horizontal col-sm-offset-2 col-sm-8" novalidate>
+        <div class="form-group" ng-class="{'has-error': form.name.$dirty && form.name.$invalid}">
+            <label for="name" class="col-sm-2 control-label">Username</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control"
+                       id="name" name="name" ng-model="info.name"
+                       ng-maxlength="23" required/>
+                <span class="help-block" ng-show="form.name.$dirty && form.name.$error.required">Required.</span>
+                <span class="help-block" ng-show="form.name.$dirty && form.name.$error.maxlength">Too long.</span>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': form.passwordFirst.$dirty && form.passwordFirst.$invalid}">
+            <label for="passwordFirst" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control"
+                       id="passwordFirst" name="passwordFirst" ng-model="info.passwordFirst"
+                       ng-maxlength="20" required
+                       ng-change="form.passwordTwice.$validate()"/>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': form.passwordTwice.$dirty && form.passwordTwice.$invalid}">
+            <label for="passwordTwice" class="col-sm-2 control-label">(confirm)</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control"
+                       id="passwordTwice" name="passwordTwice" ng-model="info.passwordTwice"/>
+                <span class="help-block" ng-show="form.passwordTwice.$dirty && form.passwordTwice.$error.validateSame">Confirm your password.</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-success"
+                        ng-disabled="form.$invalid||form.$submitted">Register</button>
+            </div>
+        </div>
+    </form>
+</div>

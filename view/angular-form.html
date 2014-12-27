@@ -1,0 +1,17 @@
+<div>
+    <p>
+        <strong>参考:</strong>
+        <a target="_blank" href="https://docs.angularjs.org/guide/forms">Developer Guide: Forms</a>,
+        <a target="_blank" href="https://docs.angularjs.org/api/ng/directive/input">API: input</a>
+    </p>
+    <p>
+        Angular 提供了 ngRequired, ngMinlength, ngPattern 等来规范 input 的输入, 放在 form 中, 标好 form 和 input 的 name 属性, 就可以使用自动生成的一系列对象.
+    </p>
+    <p>
+        利用这些对象, 可以提供各种错误输入时的提示, 也可以自己添加校验规则, 本地或远程都可以.
+    </p>
+    <p>
+        另, ngClass 加 hasError 可以用<code>.ng-dirty.ng-invalid { color: ... }</code>代替.
+    </p>
+    <cs-code preview-page="0" default-page="1" include-files="['/view/sample/angular-form.html', '/page/angular-form/angular-form.js']"></cs-code>
+</div>
